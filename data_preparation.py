@@ -1,5 +1,6 @@
 import pandas as pd
 import os.path
+import os
 
 def read_case_file(fname, col_name, ignore_lat_lon=False):
     df = pd.read_csv(fname)
@@ -29,3 +30,15 @@ def prepare_covid_data(folder):
        .merge(recov_df, on=['state', 'country', 'date'])
     
     return df
+
+
+if __name__ == '__main__':
+    # TODO: Read folder from yaml file
+
+    DATA_DIR = 'data'
+    folder = r'../COVID-19/csse_covid_19_data/csse_covid_19_time_series'
+    df = prepare_covid_data(folder)
+    # Create data dir if it doesn't exist
+    if not os.path.isdir(DATA_DIR):
+        os.mkdir(DATA_DIR) 
+    df.to_csv('data/covid_prep.csv', index=False)

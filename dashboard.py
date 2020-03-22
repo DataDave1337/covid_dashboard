@@ -6,7 +6,7 @@ import streamlit as st
 import matplotlib.pyplot as plt
 
 # Load and prepare data
-df = pd.read_csv('covid_prep.csv')
+df = pd.read_csv('data/covid_prep.csv')
 df['date'] = pd.to_datetime(df['date'], format='%Y/%m/%d', errors='ignore')
 
 st.title('Corona data visualization')
