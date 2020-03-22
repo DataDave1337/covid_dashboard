@@ -10,7 +10,7 @@ In order to create the prepared dataset used for the visualization run:
 ```bash
 python data_preparation.py
 ```
-As of now the folder where the COVID data is located needs to be specified in the mentioned python file. After the prepared data is created you can start the streamlit by running:
+As of now the folder where the COVID data is located needs to be specified in the mentioned python file. After the prepared data is created you can start the streamlit app using:
 ```bash
 streamlit run dashboard.py
 ```
