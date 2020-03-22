@@ -1,6 +1,7 @@
 import pandas as pd
 import os.path
 import os
+import yaml
 
 def read_case_file(fname, col_name, ignore_lat_lon=False):
     df = pd.read_csv(fname)
@@ -33,12 +34,14 @@ def prepare_covid_data(folder):
 
 
 if __name__ == '__main__':
-    # TODO: Read folder from yaml file
+    # Load path config
+    config_file = open('config.yaml', 'r')
+    config = yaml.safe_load(config_file)
+    SOURCE_DATA_DIR = config['source_data_dir']
+    PREP_DATA_DIR = config['prep_data_dir']
 
-    DATA_DIR = 'data'
-    folder = r'../COVID-19/csse_covid_19_data/csse_covid_19_time_series'
-    df = prepare_covid_data(folder)
+    df = prepare_covid_data(SOURCE_DATA_DIR)
     # Create data dir if it doesn't exist
-    if not os.path.isdir(DATA_DIR):
-        os.mkdir(DATA_DIR) 
-    df.to_csv('data/covid_prep.csv', index=False)
+    if not os.path.isdir(PREP_DATA_DIR):
+        os.mkdir(PREP_DATA_DIR)
+    df.to_csv(os.path.join(PREP_DATA_DIR, 'covid_prep.csv'), index=False)

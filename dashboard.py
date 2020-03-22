@@ -4,9 +4,26 @@ import os
 import os.path
 import streamlit as st
 import matplotlib.pyplot as plt
+import yaml
+
+def history_plot(data):
+    fig = plt.figure(figsize=(10,7))
+    ax = fig.gca()
+    ax = data.plot(x='date', y=['confirmed_cases', 'deaths', 'recovered'], ax=ax)
+    ax.grid(True)
+    ax.set_title(f"{country}'s Corona history")
+    plt.tight_layout()
+    
+    return fig
+
+# Load path config
+config_file = open('config.yaml', 'r')
+config = yaml.safe_load(config_file)
+SOURCE_DATA_DIR = config['source_data_dir']
+PREP_DATA_DIR = config['prep_data_dir']
 
 # Load and prepare data
-df = pd.read_csv('data/covid_prep.csv')
+df = pd.read_csv(os.path.join(PREP_DATA_DIR, 'covid_prep.csv'))
 df['date'] = pd.to_datetime(df['date'], format='%Y/%m/%d', errors='ignore')
 
 st.title('Corona data visualization')
@@ -25,11 +42,11 @@ st.write(latest_df[['date','country', 'confirmed_cases', 'deaths', 'recovered']]
 country = st.sidebar.selectbox("Choose country to look at", countries)
 filter_df = df[df['country']==country]
 
-# bool for state_filter
 # state filter
 state_count = filter_df['state'].notnull().sum()
 
 if state_count > 0:
+    # bool for state_filter
     if st.sidebar.checkbox('Filter by state'):
         states = filter_df[filter_df['state'].notnull()]['state'].unique()
         state = st.sidebar.selectbox("Choose state to look at", states)
@@ -39,12 +56,7 @@ if state_count > 0:
 
 # history plot
 st.subheader('Country History')
-fig = plt.figure(figsize=(10,7))
-ax = fig.gca()
-ax = filter_df.plot(x='date', y=['confirmed_cases', 'deaths', 'recovered'], ax=ax)
-ax.grid(True)
-ax.set_title(f"{country}'s Corona history")
-plt.tight_layout()
+fig = history_plot(filter_df)
 st.write(fig)
 
 # st.map(filter_df)
