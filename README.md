@@ -1,7 +1,7 @@
 # COVID-19 Dashboard
 A Python-based Dashboard showing COVID-19 data using the library streamlit.
 
-![Dashboard_Screenshot](images/dashboard_screenshot.png)
+![Screenshot](/Users/david/projects/covid_dashboard/images/dashboard_screenshot.png)
 
 ## Data source
 The data used in this Dashboard comes from https://github.com/CSSEGISandData/COVID-19.
