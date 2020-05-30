@@ -20,9 +20,9 @@ def read_case_file(fname, col_name, ignore_lat_lon=False):
     return df_result
 
 def prepare_covid_data(folder):
-    conf_fname = os.path.join(folder, 'time_series_19-covid-Confirmed.csv')
-    death_fname = os.path.join(folder, 'time_series_19-covid-Deaths.csv')
-    recov_fname = os.path.join(folder, 'time_series_19-covid-Recovered.csv')
+    conf_fname = os.path.join(folder, 'time_series_covid19_confirmed_global.csv')
+    death_fname = os.path.join(folder, 'time_series_covid19_deaths_global.csv')
+    recov_fname = os.path.join(folder, 'time_series_covid19_recovered_global.csv')
 
     conf_df = read_case_file(conf_fname, 'confirmed_cases')
     death_df = read_case_file(death_fname, 'deaths', ignore_lat_lon=True)

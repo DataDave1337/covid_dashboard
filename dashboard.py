@@ -24,6 +24,8 @@ def history_plot(data):
     return fig
 
 def country_geoplot(country_data, shp_path):
+    # TODO: Fix missing countries
+    
     def load_country_shapes(country_shp_path):
         #Read shapefile using Geopandas
         gdf = gpd.read_file(country_shp_path)[['ADMIN', 'ADM0_A3', 'geometry']]
